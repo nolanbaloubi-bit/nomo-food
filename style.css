@@ -176,6 +176,16 @@ z-index: 1000;
     box-shadow:0 4px 15px rgba(0,0,0,0.15);
 }
 
+.status.open{
+    background:#dcfce7;
+    color:#15803D;
+}
+
+.status.closed{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
 .hero-slogan{
 
     font-size:16px;
@@ -313,6 +323,12 @@ z-index: 1000;
 
 .hero{
     background-position:center center;
+}
+
+.status{
+    font-size:10px;
+    padding:6px 10px;
+    margin-bottom:12px;
 }
 
 }

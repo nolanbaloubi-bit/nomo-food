@@ -13,3 +13,49 @@ navLinks.forEach(link => {
     });
 
 });
+
+const status = document.getElementById("restaurant-status");
+
+const maintenant = new Date();
+
+const jour = maintenant.getDay(); 
+const heure = maintenant.getHours();
+const minutes = maintenant.getMinutes();
+
+const heureActuelle = heure + minutes / 60;
+
+let ouvert = false;
+
+
+// Dimanche
+if (jour === 0) {
+
+    ouvert = false;
+
+}
+
+// Lundi à samedi
+else {
+
+    if (heureActuelle >= 8 && heureActuelle < 22) {
+        ouvert = true;
+    }
+
+}
+
+
+// Affichage
+
+if (ouvert) {
+
+    status.innerHTML = "🟢 Ouvert maintenant • Ferme à 22h00";
+    status.className = "status open";
+
+}
+
+else {
+
+    status.innerHTML = "🔴 Fermé • Ouvre demain à 8h00";
+    status.className = "status closed";
+
+}
