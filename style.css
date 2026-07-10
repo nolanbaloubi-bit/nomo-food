@@ -220,7 +220,38 @@ z-index: 1000;
 
 }
 
+
+
 @media (max-width: 768px){
+
+    .navbar{
+
+    height:70px;
+
+    padding:0 20px;
+
+}
+
+
+.logo img{
+
+    height:70px;
+
+}
+
+
+.nav-links{
+
+    gap:12px;
+
+}
+
+
+.nav-links a{
+
+    font-size:12px;
+
+}
 
     .navbar{
         height:70px;
@@ -247,12 +278,66 @@ z-index: 1000;
 
     align-items:center;
 
-    padding:30px 10px;
+    padding:20px 8px;
 
-    gap:10px;
+    gap:5px;
 
 }
 
+
+.hero-left{
+
+    flex:0 0 90px;
+
+}
+
+
+.restaurant-logo{
+
+    width:90px;
+
+}
+
+
+.hero-center{
+
+    flex:1;
+
+}
+
+
+.status{
+
+    font-size:9px;
+
+    margin-bottom:8px;
+
+}
+
+
+.hero-slogan{
+
+    font-size:10px;
+
+    max-width:100px;
+
+}
+
+
+.hero-right{
+
+    flex:0 0 100px;
+
+}
+
+
+.hero-food{
+
+    width:100px;
+
+    border-radius:12px;
+
+}
 
 .hero-left{
 
@@ -330,5 +415,55 @@ z-index: 1000;
     padding:6px 10px;
     margin-bottom:12px;
 }
+
+/* Animation changement de page */
+
+body{
+    animation: pageEnter .5s ease;
+}
+
+@keyframes pageEnter{
+
+    from{
+        opacity:0;
+        transform:translateX(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+
+}
+
+}
+
+/* Animation sortie de page */
+
+.page-exit{
+
+    animation: slideOut .4s ease forwards;
+
+}
+
+
+@keyframes slideOut{
+
+    from{
+
+        transform:translateX(0);
+
+        opacity:1;
+
+    }
+
+
+    to{
+
+        transform:translateX(-100px);
+
+        opacity:0;
+
+    }
 
 }
