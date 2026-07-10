@@ -9,6 +9,20 @@ body{
     background:#f8f8f8;
 }
 
+*{
+    -webkit-tap-highlight-color: transparent;
+}
+
+a,
+button,
+.food-card{
+    outline:none;
+    -webkit-tap-highlight-color:transparent;
+}
+
+*:focus{
+    outline:none;
+}
 
 /* ================= NAVBAR ================= */
 
@@ -139,12 +153,9 @@ body{
 
     font-size:18px;
 
-    position:relative;
+    .menu-tabs a{
 
-    transition:
-        color .25s ease,
-        transform .25s ease;
-}
+    -webkit-tap-highlight-color:transparent;
 
     text-decoration:none;
 
@@ -159,6 +170,7 @@ body{
     transition:
         color .25s ease,
         transform .25s ease;
+
 }
 
 
