@@ -129,8 +129,21 @@ body{
 
 .menu-tabs a{
 
-    .menu-tabs a{
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color:transparent;
+
+    text-decoration:none;
+
+    color:#222;
+
+    font-weight:bold;
+
+    font-size:18px;
+
+    position:relative;
+
+    transition:
+        color .25s ease,
+        transform .25s ease;
 }
 
     text-decoration:none;
