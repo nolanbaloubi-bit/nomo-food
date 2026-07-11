@@ -1,26 +1,22 @@
-const links = document.querySelectorAll("a");
+const homeLink = document.querySelector('.logo a');
 
-links.forEach(link => {
+if(homeLink){
 
-    if(link.href.includes("index.html")){
+    homeLink.addEventListener("click", function(e){
 
-        link.addEventListener("click", function(e){
+        e.preventDefault();
 
-            e.preventDefault();
+        document.body.classList.add("page-exit");
 
-            document.body.classList.add("page-exit");
+        setTimeout(() => {
 
-            setTimeout(() => {
+            window.location.href = this.href;
 
-                window.location.href = link.href;
+        },400);
 
-            }, 400);
+    });
 
-        });
-
-    }
-
-});
+}
 
 // ================= MENU TABS =================
 
@@ -45,7 +41,11 @@ tabs.forEach(tab => {
 
         });
 
-        document.getElementById(target).classList.add("active");
+        const section = document.getElementById(target);
+
+if(section){
+    section.classList.add("active");
+}
 
     });
 

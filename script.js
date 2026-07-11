@@ -1,3 +1,5 @@
+console.log("menu.js chargé");
+
 const navLinks = document.querySelectorAll(".nav-links a");
 
 navLinks.forEach(link => {
