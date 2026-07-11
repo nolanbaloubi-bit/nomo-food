@@ -63,15 +63,56 @@ function updateCartBar(){
 
         total += item.price * item.quantity;
 
-        const img = document.createElement("img");
+        const product = document.createElement("div");
 
-        img.src = item.image;
+product.className = "cart-item";
 
-        img.alt = item.name;
 
-        img.className = "cart-thumb";
+const img = document.createElement("img");
 
-        cartProducts.appendChild(img);
+img.src = item.image;
+
+img.alt = item.name;
+
+img.className = "cart-thumb";
+
+
+
+const removeBtn = document.createElement("button");
+
+removeBtn.textContent = "×";
+
+removeBtn.className = "remove-cart-item";
+
+
+
+removeBtn.addEventListener("click", () => {
+
+    cart = cart.filter(product => product.name !== item.name);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    updateCartBar();
+
+});
+
+
+
+const quantity = document.createElement("span");
+
+quantity.textContent = item.quantity;
+
+quantity.className = "cart-quantity";
+
+
+product.appendChild(img);
+
+product.appendChild(quantity);
+
+product.appendChild(removeBtn);
+
+
+cartProducts.appendChild(product);
 
           });
 
