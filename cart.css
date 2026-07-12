@@ -232,6 +232,34 @@
 
 }
 
+.empty-cart{
+
+    background:white;
+
+    padding:40px 20px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+
+.empty-cart h2{
+
+    margin-bottom:15px;
+
+}
+
+
+.empty-cart p{
+
+    color:#777;
+
+}
+
 @media (max-width:768px){
 
     .cart-bar{

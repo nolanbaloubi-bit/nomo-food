@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Panier | NOMO FOOD</title>
+
+    <link rel="stylesheet" href="panier.css">
+
+</head>
+
+
+<body>
+
+    <button class="back-btn" onclick="history.back()">
+    ×
+</button>
+
+<header class="navbar">
+
+    <div class="logo">
+
+        <a href="index.html">
+
+            <img src="images/logo.png" alt="Logo NOMO FOOD">
+
+        </a>
+
+    </div>
+
+
+</header>
+
+
+
+<main class="cart-page">
+
+
+    <h1>Votre commande</h1>
+
+
+    <div id="cart-list">
+
+
+    </div>
+
+
+
+    <div class="cart-summary">
+
+
+        <h2 id="total">
+
+            Total : 0 FCFA
+
+        </h2>
+
+
+        <button id="validate-order">
+
+            Valider la commande
+
+        </button>
+
+
+    </div>
+
+
+</main>
+
+
+
+
+
+<div class="whatsapp-modal" id="whatsapp-modal">
+
+    <div class="whatsapp-box">
+
+        <button class="close-modal">
+            ×
+        </button>
+
+        <h2>
+            Finaliser la commande
+        </h2>
+
+        <p>
+            Entrez votre numéro WhatsApp
+            (ou appel)
+        </p>
+
+
+        <input 
+        type="tel"
+        id="client-number"
+        placeholder="Votre numéro">
+
+
+        <button id="send-order">
+            Envoyer la commande
+        </button>
+
+
+    </div>
+
+</div>
+
+<script src="panier.js"></script>
+
+</body>
+
+</html>
