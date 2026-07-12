@@ -872,3 +872,247 @@ input:focus-visible{
     }
 
 }
+
+
+/* ================= FOOTER ================= */
+
+.footer{
+
+    margin-top:80px;
+
+    padding:40px 20px 140px;
+
+    background:#111;
+
+    text-align:center;
+
+}
+.footer p{
+
+    color:#ddd;
+
+    margin:8px 0;
+
+    font-size:15px;
+
+}
+
+#admin-btn{
+
+    margin-top:25px;
+
+    background:none;
+
+    border:none;
+
+    color:#e53935;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+#admin-btn:hover{
+
+    transform:scale(1.05);
+
+    color:#ff5252;
+
+}
+
+#admin-btn:active{
+
+    transform:scale(.95);
+
+}
+
+/* ===========================
+      ADMIN MODAL
+=========================== */
+
+.admin-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    backdrop-filter:blur(5px);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+
+    z-index:5000;
+
+}
+
+.admin-modal.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+.admin-box{
+
+    width:90%;
+
+    max-width:420px;
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:35px;
+
+    position:relative;
+
+    text-align:center;
+
+    animation:popup .3s ease;
+
+}
+
+@keyframes popup{
+
+    from{
+
+        transform:scale(.9);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+.admin-box h2{
+
+    margin-bottom:15px;
+
+}
+
+.admin-box p{
+
+    color:#666;
+
+    margin-bottom:20px;
+
+}
+
+.admin-box input{
+
+    width:100%;
+
+    padding:14px;
+
+    border:2px solid #ddd;
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:16px;
+
+}
+
+.admin-box input:focus{
+
+    border-color:#ff7300;
+
+}
+
+#login-admin{
+
+    margin-top:20px;
+
+    width:100%;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#ff7300;
+
+    color:white;
+
+    padding:15px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+}
+
+.close-admin{
+
+    position:absolute;
+
+    top:15px;
+
+    right:15px;
+
+    width:35px;
+
+    height:35px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#ff7300;
+
+    color:white;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+}
+
+.admin-box input.error{
+
+    border-color:#e53935;
+
+    animation:shake .35s;
+
+}
+
+@keyframes shake{
+
+    0%{transform:translateX(0);}
+
+    20%{transform:translateX(-8px);}
+
+    40%{transform:translateX(8px);}
+
+    60%{transform:translateX(-8px);}
+
+    80%{transform:translateX(8px);}
+
+    100%{transform:translateX(0);}
+
+}

@@ -1,0 +1,472 @@
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+}
+
+
+body{
+
+font-family:Arial,sans-serif;
+
+background:#f5f6fa;
+
+}
+
+
+
+.admin-header{
+
+height:80px;
+
+background:white;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:0 40px;
+
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+
+}
+
+
+.admin-header a{
+
+background:#ff7300;
+
+color:white;
+
+text-decoration:none;
+
+padding:10px 20px;
+
+border-radius:30px;
+
+}
+
+
+
+.menu-container{
+
+max-width:1000px;
+
+margin:auto;
+
+padding:50px 20px;
+
+}
+
+
+
+.add-menu{
+
+background:white;
+
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+
+
+.add-menu input{
+
+display:block;
+
+width:100%;
+
+padding:15px;
+
+margin:15px 0;
+
+border-radius:10px;
+
+border:1px solid #ddd;
+
+}
+
+
+
+.add-menu button{
+
+background:#ff7300;
+
+border:none;
+
+color:white;
+
+padding:15px 30px;
+
+border-radius:30px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+}
+
+.image-preview{
+
+    margin-top:20px;
+
+    text-align:center;
+
+}
+
+
+.image-preview img{
+
+    width:200px;
+
+    height:200px;
+
+    object-fit:cover;
+
+    border-radius:20px;
+
+    display:none;
+
+}
+
+.add-menu{
+
+    max-width:500px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:30px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.1);
+
+}
+
+
+.add-menu h2{
+
+    text-align:center;
+
+    font-size:32px;
+
+    margin-bottom:30px;
+
+    color:#222;
+
+}
+
+
+
+.add-menu input{
+
+    width:100%;
+
+    padding:16px;
+
+    margin-bottom:20px;
+
+    border-radius:15px;
+
+    border:1px solid #ddd;
+
+    font-size:16px;
+
+}
+
+
+
+.image-label{
+
+    display:block;
+
+    background:#ff7300;
+
+    color:white;
+
+    text-align:center;
+
+    padding:15px;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.image-label input{
+
+    display:none;
+
+}
+
+
+
+.image-preview{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin:20px 0;
+
+}
+
+
+
+.image-preview img{
+
+    width:220px;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:25px;
+
+}
+
+
+
+.image-info{
+
+    text-align:center;
+
+    color:#777;
+
+    font-size:14px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+#add-food{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:#222;
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+#add-food:hover{
+
+    background:#ff7300;
+
+}
+
+@media(max-width:768px){
+
+
+.menu-container{
+
+    padding:30px 15px;
+
+}
+
+
+
+.add-menu{
+
+    padding:25px;
+
+    border-radius:20px;
+
+}
+
+
+
+.add-menu h2{
+
+    font-size:26px;
+
+}
+
+
+
+.image-preview img{
+
+    width:170px;
+
+    height:170px;
+
+}
+
+
+}
+
+.food-list-section{
+
+    margin-top:50px;
+
+}
+
+
+#food-list{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+}
+
+
+
+.food-card{
+
+    background:white;
+
+    border-radius:25px;
+
+    padding:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+
+    text-align:center;
+
+}
+
+
+
+.food-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:20px;
+
+}
+
+
+
+.food-card h3{
+
+    margin-top:15px;
+
+    font-size:22px;
+
+}
+
+
+
+.food-card p{
+
+    color:#ff7300;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+
+
+.food-card button{
+
+    margin-top:15px;
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:25px;
+
+    background:#ff7300;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+@media(max-width:768px){
+
+
+    #food-list{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+
+    .food-card{
+
+        width:100%;
+
+    }
+
+
+
+    .food-card img{
+
+        height:180px;
+
+    }
+
+.food-card img{
+
+    width:200px;
+
+    height:200px;
+
+    object-fit:cover;
+
+    border-radius:20px;
+
+    display:block;
+
+    margin:0 auto;
+
+}
+
+.food-card{
+
+    max-width:300px;
+
+    margin:auto;
+
+}
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gestion des menus - NOMO FOOD</title>
+
+<link rel="stylesheet" href="ajouter-plat.css">
+
+</head>
+
+
+<body>
+
+
+<header class="admin-header">
+
+<a href="dashboard.html">
+
+← Retour
+
+</a>
+
+
+<h1>
+🍔 Gestion des menus
+</h1>
+
+
+</header>
+
+
+
+<main class="menu-container">
+
+
+<section class="add-menu">
+
+
+<h2>
+Ajouter un plat
+</h2>
+
+
+<input 
+type="text" 
+id="food-name" 
+placeholder="Nom du plat">
+
+
+<input 
+type="number" 
+id="food-price" 
+placeholder="Prix FCFA">
+
+<select id="food-category">
+
+<option value="">
+
+Choisir une catégorie
+
+</option>
+
+<option value="Fast Food">
+
+ Fast Food
+
+</option>
+
+<option value="Cuisine Africaine">
+
+ Cuisine Africaine
+
+</option>
+
+<option value="Boissons">
+
+ Boissons
+
+</option>
+
+<option value="Desserts">
+
+ Desserts
+
+</option>
+
+</select>
+
+<label class="featured-check">
+
+<input
+type="checkbox"
+id="food-featured">
+
+⭐ Afficher dans "Nos incontournables"
+
+</label>
+
+<input 
+type="file"
+id="food-image"
+accept="image/png, image/jpeg, image/webp"
+hidden>
+
+
+<label for="food-image" class="image-label">
+
+📷 Choisir une image
+
+</label>
+
+
+
+<div class="image-preview">
+
+<img 
+id="preview-image"
+src=""
+alt="Aperçu">
+
+</div>
+
+
+
+<p class="image-info">
+
+Formats acceptés : JPG, PNG, WEBP <br>
+
+Taille maximale : 3 Mo
+
+</p>
+
+
+
+<button id="add-food">
+
+Ajouter le plat
+
+</button>
+
+
+</section>
+
+<section class="food-list-section">
+
+<h2>
+Mes plats
+</h2>
+
+
+<div id="food-list">
+
+</div>
+
+
+</section>
+
+</main>
+
+
+
+<script src="menu-admin.js"></script>
+
+
+</body>
+
+</html>
