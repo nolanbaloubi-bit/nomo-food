@@ -40,6 +40,14 @@ buttons.forEach(button => {
 
 updateCartBar();
 
+window.addEventListener("pageshow", () => {
+
+    cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    updateCartBar();
+
+});
+
         console.log(cart);
 
     });
