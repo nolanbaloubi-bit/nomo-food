@@ -122,3 +122,11 @@ cartProducts.appendChild(product);
 }
 
 updateCartBar();
+
+window.addEventListener("cartUpdated", () => {
+
+    cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    updateCartBar();
+
+});

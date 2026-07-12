@@ -199,6 +199,30 @@ sendBtn.addEventListener("click",()=>{
 
     localStorage.removeItem("cart");
 
-    alert("Commande envoyée avec succès ! NOMO FOOD vous contactera bientôt.");
+cart = [];
+
+window.dispatchEvent(new Event("cartUpdated"));
+
+cartList.innerHTML = `
+
+<div class="empty-cart">
+
+<h2>Votre panier est vide</h2>
+
+<p>
+Ajoutez des plats depuis le menu pour commander.
+</p>
+
+</div>
+
+`;
+
+totalDisplay.innerHTML = "Total : 0 FCFA";
+
+validateBtn.style.display = "none";
+
+modal.classList.remove("active");
+
+alert("Commande envoyée avec succès ! NOMO FOOD vous contactera bientôt.");
 
 });
