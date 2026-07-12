@@ -188,7 +188,7 @@ sendBtn.addEventListener("click",()=>{
 
 
     const restaurantNumber =
-    "22960708867";
+    "22940955921";
 
 
     window.open(
@@ -197,5 +197,8 @@ sendBtn.addEventListener("click",()=>{
     "_blank"
     );
 
+    localStorage.removeItem("cart");
+
+    alert("Commande envoyée avec succès ! NOMO FOOD vous contactera bientôt.");
 
 });
