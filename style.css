@@ -360,28 +360,39 @@ body{
 
 }
 
-.featured-card .add-btn{
+.featured-card{
 
-    width:45px;
-    height:45px;
+    position:relative;
 
-    border:none;
+    width:280px;
 
-    border-radius:50%;
+    height:180px;
 
-    background:white;
+    overflow:hidden;
 
-    font-size:28px;
+    border-radius:20px;
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
+    flex-shrink:0;
 
     cursor:pointer;
 
-    transition:.25s;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+.featured-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.18);
+
+}
+
+.featured-card:active{
+
+    transform:scale(.96);
 
 }
 
@@ -401,6 +412,64 @@ body{
 .featured-card:active{
 
     transform:scale(0.96);
+
+}
+
+.featured-card .add-btn{
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+
+}
+
+.featured-card .add-btn:hover{
+
+    transform:scale(1.12);
+
+}
+
+.featured-card .add-btn:active{
+
+    transform:scale(.88);
+
+}
+
+.featured-card .add-btn{
+
+    width:45px;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:white;
+
+    font-size:28px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:transform .2s ease;
+
+}
+
+.featured-card .add-btn:hover{
+
+    transform:scale(1.1);
+
+}
+
+.featured-card .add-btn:active{
+
+    transform:scale(.9);
 
 }
 
@@ -671,6 +740,134 @@ body{
         transform:translateX(-100px);
 
         opacity:0;
+
+    }
+
+}
+
+*,
+*::before,
+*::after{
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+a,
+button,
+input,
+textarea,
+select{
+
+    outline:none;
+
+}
+
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus{
+
+    outline:none;
+
+    box-shadow:none;
+
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible{
+
+    outline:none;
+
+    box-shadow:none;
+
+}
+
+/* ================= HORAIRES ================= */
+
+.opening-hours{
+
+    max-width:900px;
+
+    margin:70px auto;
+
+    padding:0 20px;
+
+}
+
+.opening-hours h2{
+
+    font-size:32px;
+
+    color:#222;
+
+    margin-bottom:25px;
+
+}
+
+.opening-hours table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+}
+
+.opening-hours td{
+
+    padding:18px 25px;
+
+    border-bottom:1px solid #eee;
+
+    font-size:18px;
+
+}
+
+.opening-hours tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+.closed-day{
+
+    color:#dc2626;
+
+    font-weight:bold;
+
+}
+
+@media(max-width:768px){
+
+    .opening-hours{
+
+        margin:50px auto;
+
+        padding:0 15px;
+
+    }
+
+    .opening-hours h2{
+
+        font-size:24px;
+
+    }
+
+    .opening-hours td{
+
+        padding:14px;
+
+        font-size:14px;
 
     }
 
