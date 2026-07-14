@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration du menu | NOMO FOOD</title>
+  <link rel="stylesheet" href="menu-admin.css">
+</head>
+<body>
+
+  <header class="admin-header">
+    <a href="menu.html" class="back-btn" aria-label="Retour au menu">←</a>
+    <h1 class="admin-title">Administration du menu</h1>
+  </header>
+
+  <div class="admin-toolbar">
+    <button type="button" id="add-tab-btn" class="add-tab-btn">+ Ajouter un onglet</button>
+  </div>
+
+  <section class="admin-tabs">
+    <ul id="tabs-list">
+      <li class="tab-item active">
+        <button type="button" class="tab-btn" data-target="fast-food">
+          <span class="tab-title" contenteditable="true">Fast Food</span>
+        </button>
+        <button type="button" class="tab-delete-btn" aria-label="Supprimer cet onglet">×</button>
+      </li>
+
+      <li class="tab-item">
+        <button type="button" class="tab-btn" data-target="plats-chauds">
+          <span class="tab-title" contenteditable="true">Plats Chauds</span>
+        </button>
+        <button type="button" class="tab-delete-btn" aria-label="Supprimer cet onglet">×</button>
+      </li>
+
+      <li class="tab-item">
+        <button type="button" class="tab-btn" data-target="boissons">
+          <span class="tab-title" contenteditable="true">Boissons</span>
+        </button>
+        <button type="button" class="tab-delete-btn" aria-label="Supprimer cet onglet">×</button>
+      </li>
+
+      <li class="tab-item">
+        <button type="button" class="tab-btn" data-target="glaces">
+          <span class="tab-title" contenteditable="true">Glaces</span>
+        </button>
+        <button type="button" class="tab-delete-btn" aria-label="Supprimer cet onglet">×</button>
+      </li>
+    </ul>
+  </section>
+
+  <main class="menu-content">
+
+    <section class="menu-category active" id="fast-food">
+      <section class="menu-section">
+        <div class="section-head">
+          <h2 contenteditable="true">Nos burgers</h2>
+        </div>
+
+        <div class="cards">
+          <article class="food-card">
+            <img src="images/cheeseburger.jpg" alt="Cheeseburger">
+            <div class="overlay">
+              <div class="admin-card-content">
+                <label>Nom</label>
+                <input type="text" class="card-name" value="Cheeseburger">
+                <label>Prix</label>
+                <input type="text" class="card-price" value="2 500 FCFA">
+              </div>
+              <div class="card-actions">
+                <button type="button" class="delete-btn">Supprimer</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="food-card">
+            <img src="images/double-cheeseburger.jpg" alt="Double Cheeseburger">
+            <div class="overlay">
+              <div class="admin-card-content">
+                <label>Nom</label>
+                <input type="text" class="card-name" value="Double Cheeseburger">
+                <label>Prix</label>
+                <input type="text" class="card-price" value="4 500 FCFA">
+              </div>
+              <div class="card-actions">
+                <button type="button" class="delete-btn">Supprimer</button>
+              </div>
+            </div>
+          </article>
+
+          <button type="button" class="add-card">
+            <span>+</span>
+            <span>Ajouter un plat</span>
+          </button>
+        </div>
+      </section>
+    </section>
+
+    <section class="menu-category" id="plats-chauds">
+      <section class="menu-section">
+        <div class="section-head">
+          <h2 contenteditable="true">Nos grillades</h2>
+        </div>
+
+        <div class="cards">
+          <article class="food-card">
+            <img src="images/poulet-braise.jpg" alt="Poulet Braisé">
+            <div class="overlay">
+              <div class="admin-card-content">
+                <label>Nom</label>
+                <input type="text" class="card-name" value="Poulet Braisé">
+                <label>Prix</label>
+                <input type="text" class="card-price" value="3 500 FCFA">
+              </div>
+              <div class="card-actions">
+                <button type="button" class="delete-btn">Supprimer</button>
+              </div>
+            </div>
+          </article>
+
+          <button type="button" class="add-card">
+            <span>+</span>
+            <span>Ajouter un plat</span>
+          </button>
+        </div>
+      </section>
+    </section>
+
+    <section class="menu-category" id="boissons">
+      <section class="menu-section">
+        <div class="section-head">
+          <h2 contenteditable="true">Nos boissons</h2>
+        </div>
+
+        <div class="cards">
+          <article class="food-card">
+            <img src="images/coca-cola.jpg" alt="Coca-Cola">
+            <div class="overlay">
+              <div class="admin-card-content">
+                <label>Nom</label>
+                <input type="text" class="card-name" value="Coca-Cola">
+                <label>Prix</label>
+                <input type="text" class="card-price" value="700 FCFA">
+              </div>
+              <div class="card-actions">
+                <button type="button" class="delete-btn">Supprimer</button>
+              </div>
+            </div>
+          </article>
+
+          <button type="button" class="add-card">
+            <span>+</span>
+            <span>Ajouter un plat</span>
+          </button>
+        </div>
+      </section>
+    </section>
+
+    <section class="menu-category" id="glaces">
+      <section class="menu-section">
+        <div class="section-head">
+          <h2 contenteditable="true">Nos glaces</h2>
+        </div>
+
+        <div class="cards">
+          <article class="food-card">
+            <img src="images/glace-chocolat.jpg" alt="Glace Chocolat">
+            <div class="overlay">
+              <div class="admin-card-content">
+                <label>Nom</label>
+                <input type="text" class="card-name" value="Glace Chocolat">
+                <label>Prix</label>
+                <input type="text" class="card-price" value="1 500 FCFA">
+              </div>
+              <div class="card-actions">
+                <button type="button" class="delete-btn">Supprimer</button>
+              </div>
+            </div>
+          </article>
+
+          <button type="button" class="add-card">
+            <span>+</span>
+            <span>Ajouter un plat</span>
+          </button>
+        </div>
+      </section>
+    </section>
+
+  </main>
+
+  <template id="food-card-template">
+    <article class="food-card">
+      <img src="images/plat-principal.jpg" alt="Nouveau plat">
+      <div class="overlay">
+        <div class="admin-card-content">
+          <label>Nom</label>
+          <input type="text" class="card-name" value="Nouveau plat">
+          <label>Prix</label>
+          <input type="text" class="card-price" value="0 FCFA">
+        </div>
+        <div class="card-actions">
+          <button type="button" class="delete-btn">Supprimer</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    document.addEventListener("click", function (e) {
+      const addCardBtn = e.target.closest(".add-card");
+      if (addCardBtn) {
+        const cards = addCardBtn.closest(".cards");
+        const template = document.getElementById("food-card-template");
+        const clone = template.content.firstElementChild.cloneNode(true);
+        cards.insertBefore(clone, addCardBtn);
+        return;
+      }
+
+      const deleteBtn = e.target.closest(".delete-btn");
+      if (deleteBtn) {
+        deleteBtn.closest(".food-card").remove();
+        return;
+      }
+
+      const tabDeleteBtn = e.target.closest(".tab-delete-btn");
+      if (tabDeleteBtn) {
+        const tabItem = tabDeleteBtn.closest(".tab-item");
+        const targetId = tabItem.querySelector(".tab-btn").dataset.target;
+        document.getElementById(targetId)?.remove();
+        tabItem.remove();
+        const firstTab = document.querySelector(".tab-item");
+        if (firstTab) {
+          document.querySelectorAll(".tab-item").forEach(tab => tab.classList.remove("active"));
+          firstTab.classList.add("active");
+          document.querySelectorAll(".menu-category").forEach(cat => cat.classList.remove("active"));
+          const firstTarget = firstTab.querySelector(".tab-btn").dataset.target;
+          document.getElementById(firstTarget)?.classList.add("active");
+        }
+        return;
+      }
+
+      const tabBtn = e.target.closest(".tab-btn");
+      if (tabBtn) {
+        document.querySelectorAll(".tab-item").forEach(tab => tab.classList.remove("active"));
+        tabBtn.closest(".tab-item").classList.add("active");
+
+        document.querySelectorAll(".menu-category").forEach(cat => cat.classList.remove("active"));
+        const targetId = tabBtn.dataset.target;
+        document.getElementById(targetId)?.classList.add("active");
+        return;
+      }
+
+      if (e.target.id === "add-tab-btn") {
+        const list = document.getElementById("tabs-list");
+        const newId = "categorie-" + Date.now();
+
+        const li = document.createElement("li");
+        li.className = "tab-item";
+        li.innerHTML = `
+          <button type="button" class="tab-btn" data-target="${newId}">
+            <span class="tab-title" contenteditable="true">Nouvel onglet</span>
+          </button>
+          <button type="button" class="tab-delete-btn" aria-label="Supprimer cet onglet">×</button>
+        `;
+        list.appendChild(li);
+
+        const category = document.createElement("section");
+        category.className = "menu-category";
+        category.id = newId;
+        category.innerHTML = `
+          <section class="menu-section">
+            <div class="section-head">
+              <h2 contenteditable="true">Nouvelle section</h2>
+            </div>
+            <div class="cards">
+              <button type="button" class="add-card">
+                <span>+</span>
+                <span>Ajouter un plat</span>
+              </button>
+            </div>
+          </section>
+        `;
+        document.querySelector(".menu-content").appendChild(category);
+
+        document.querySelectorAll(".tab-item").forEach(tab => tab.classList.remove("active"));
+        li.classList.add("active");
+        document.querySelectorAll(".menu-category").forEach(cat => cat.classList.remove("active"));
+        category.classList.add("active");
+      }
+    });
+  </script>
+
+</body>
+</html>

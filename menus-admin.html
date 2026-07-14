@@ -1,85 +1,483 @@
 <!DOCTYPE html>
-
 <html lang="fr">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Gestion des menus - NOMO FOOD</title>
-
-<link rel="stylesheet" href="menus-admin.css">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Administration du menu | NOMO FOOD</title>
+  <link rel="stylesheet" href="menu-admin.css">
 </head>
-
 <body>
 
-<header class="admin-header">
+  <header class="admin-header">
+    <h1 class="admin-title">Administration du menu</h1>
+  </header>
 
-<a href="dashboard.html" class="back-btn">
+  <div class="admin-toolbar">
+    <button id="add-tab-btn" class="add-tab-btn">+ Ajouter un onglet</button>
+  </div>
 
-←
+  <div id="admin-alert" class="admin-alert" aria-live="polite"></div>
 
-</a>
+  <section class="admin-tabs">
+    <ul id="tabs-list" class="tabs-scroll">
+      <!-- tabs rendered ici -->
+    </ul>
+  </section>
 
-<h1>
+  <main class="menu-content" id="menu-content">
+    <!-- templates -->
+    <template id="food-card-template">
+      <article class="food-card">
+        <img src="images/plat-principal.jpg" alt="plat">
+        <div class="overlay">
+          <div class="admin-card-content">
+            <label>Nom</label>
+            <input type="text" class="card-name" value="Nouveau plat">
+            <label>Prix</label>
+            <input type="text" class="card-price" value="0 FCFA">
+            <label>Photo (URL ou fichier)</label>
+            <div class="image-controls">
+              <input type="text" class="card-image-url" placeholder="https://... ou images/..." />
+              <button type="button" class="choose-photo-btn">Choisir photo</button>
+              <input type="file" accept="image/*" class="card-image-file" capture style="display:none">
+            </div>
+            <input type="hidden" class="card-image-data" value="">
+          </div>
+          <div class="card-actions">
+            <button class="delete-btn">Supprimer</button>
+          </div>
+        </div>
+      </article>
+    </template>
 
-🍔 Gestion des menus
+    <template id="section-template">
+      <section class="menu-section">
+        <div class="section-head">
+          <h2 contenteditable="true">Nouvelle section</h2>
+          <button class="delete-section-btn">Supprimer section</button>
+        </div>
+        <div class="cards">
+          <button class="add-card"><span>+</span><span>Ajouter un plat</span></button>
+        </div>
+      </section>
+    </template>
 
-</h1>
+    <template id="tab-template">
+      <li class="tab-item">
+        <button class="tab-btn" data-target=""><span class="tab-title" contenteditable="true">Nouvel onglet</span></button>
+        <button class="tab-delete-btn" aria-label="Supprimer onglet">×</button>
+      </li>
+    </template>
 
-</header>
+    <!-- categories seront rendues par JS -->
+  </main>
 
-<main class="menus-container">
+  <div class="save-bar">
+    <button id="save-btn" class="save-btn">Enregistrer les modifications</button>
+    <button id="reset-btn" class="reset-btn">Restaurer initial</button>
+  </div>
 
-<a href="ajouter-plat.html" class="menu-card">
+<script>
+(() => {
+  const LS_KEY = 'nomo_menu_v2';
+  const alertBox = document.getElementById('admin-alert');
+  const tabsList = document.getElementById('tabs-list');
+  const menuContent = document.getElementById('menu-content');
 
-<div class="emoji">
+  function showAdminAlert(text) {
+    if (!alertBox) return;
+    alertBox.textContent = '✓ ' + text;
+    alertBox.classList.add('visible');
+    clearTimeout(showAdminAlert.t);
+    showAdminAlert.t = setTimeout(()=> alertBox.classList.remove('visible'), 3000);
+  }
+  function confirmDelete(msg){ return confirm(msg); }
+  function uid(prefix='id'){ return prefix + '-' + Date.now() + '-' + Math.floor(Math.random()*9999); }
 
-➕
+  // initial data (reprend tous les plats de menu.html)
+  const initialData = {
+    tabs: [
+      {
+        title: 'Fast Food',
+        id: 'fast-food',
+        sections: [
+          { title: 'Nos burgers', items: [
+            { name:'Cheeseburger', price:'2 500 FCFA', image:'images/cheeseburger.jpg' },
+            { name:'Double Cheeseburger', price:'4 500 FCFA', image:'images/double-cheeseburger.jpg' },
+            { name:'Triple Cheeseburger', price:'5 500 FCFA', image:'images/triple-cheeseburger.jpg' },
+          ]},
+          { title: 'Nos Chawarmas', items: [
+            { name:'Chawarma Poulet', price:'1 500 FCFA', image:'images/chawarma-poulet.jpg' },
+            { name:'Chawarma Viande', price:'2 000 FCFA', image:'images/chawarma-viande.jpg' },
+            { name:'Chawarma Mixte', price:'3 000 FCFA', image:'images/chawarma-mixte.jpg' },
+            { name:'Chawarma XXL', price:'3 500 FCFA', image:'images/chawarma-xxl.jpg' },
+          ]},
+          { title: 'Nos Pizzas', items: [
+            { name:'Pizza Margherita', price:'3 500 FCFA', image:'images/pizza-margherita.jpg' },
+            { name:'Pizza Poulet', price:'4 500 FCFA', image:'images/pizza-poulet.jpg' },
+            { name:'Pizza Viande', price:'5 000 FCFA', image:'images/pizza-viande.jpg' },
+            { name:'Pizza Royale', price:'6 000 FCFA', image:'images/pizza-royale.jpg' },
+          ]},
+          { title: 'Nos Frites', items: [
+            { name:'Frites Classiques', price:'1 000 FCFA', image:'images/frites-classiques.jpg' },
+            { name:'Frites Moyennes', price:'1 500 FCFA', image:'images/frites-moyennes.jpg' },
+            { name:'Frites XXL', price:'2 500 FCFA', image:'images/frites-xxl.jpg' },
+            { name:'Frites Cheddar', price:'3 000 FCFA', image:'images/frites-cheddar.jpg' },
+            { name:'Frites Bacon & Cheddar', price:'3 500 FCFA', image:'images/frites-bacon-cheddar.jpg' },
+          ]},
+        ]
+      },
+      {
+        title: 'Plats Chauds',
+        id: 'plats-chauds',
+        sections: [
+          { title: 'Nos Grillades', items: [
+            { name:'Poulet Braisé', price:'3 500 FCFA', image:'images/poulet-braise.jpg' },
+            { name:'Poisson Braisé', price:'4 500 FCFA', image:'images/poisson-braise.jpg' },
+            { name:'Brochettes de Viande', price:'3 000 FCFA', image:'images/brochettes-viande.jpg' },
+            { name:'Côte de Porc', price:'4 000 FCFA', image:'images/cote-porc.jpg' },
+          ]},
+          { title: 'Nos Riz', items: [
+            { name:'Riz Cantonnais', price:'2 500 FCFA', image:'images/riz-cantonnais.jpg' },
+            { name:'Riz Cantonnais & Œufs', price:'3 000 FCFA', image:'images/riz-cantonnais-oeuf.jpg' },
+            { name:'Riz au Gras', price:'2 000 FCFA', image:'images/riz-au-gras.jpg' },
+            { name:'Riz Créole', price:'2 500 FCFA', image:'images/riz-creole.jpg' },
+          ]},
+          { title: 'Nos Spaghettis', items: [
+            { name:'Spaghetti', price:'2 000 FCFA', image:'images/spaghetti.jpg' },
+            { name:'Spaghetti Œuf', price:'2 500 FCFA', image:'images/spaghetti-oeuf.jpg' },
+            { name:'Spaghetti au Fromage', price:'3 000 FCFA', image:'images/spaghetti-fromage.jpg' },
+          ]},
+        ]
+      },
+      {
+        title: 'Boissons',
+        id: 'boissons',
+        sections: [
+          { title: 'Nos Boissons', items: [
+            { name:'Coca-Cola', price:'700 FCFA', image:'images/coca-cola.jpg' },
+            { name:'Fanta', price:'700 FCFA', image:'images/fanta.jpg' },
+            { name:'Sprite', price:'700 FCFA', image:'images/sprite.jpg' },
+            { name:'Eau Minérale', price:'500 FCFA', image:'images/eau.jpg' },
+          ]},
+          { title: 'Nos Jus de Fruits', items: [
+            { name:'Jus d\'Orange', price:'1 200 FCFA', image:'images/jus-orange.jpg' },
+            { name:'Jus d\'Ananas', price:'1 200 FCFA', image:'images/jus-ananas.jpg' },
+            { name:'Jus de Mangue', price:'1 300 FCFA', image:'images/jus-mangue.jpg' },
+            { name:'Cocktail de Fruits', price:'1 500 FCFA', image:'images/cocktail-fruits.jpg' },
+          ]},
+        ]
+      },
+      {
+        title: 'Glaces',
+        id: 'glaces',
+        sections: [
+          { title: 'Nos Glaces', items: [
+            { name:'Pot Glace Chocolat', price:'1 500 FCFA', image:'images/glace-chocolat.jpg' },
+            { name:'Pot Glace Vanille', price:'1 500 FCFA', image:'images/glace-vanille.jpg' },
+            { name:'Pot Glace Fraise', price:'1 500 FCFA', image:'images/glace-fraise.jpg' },
+            { name:'Pot Glace Menthe', price:'1 500 FCFA', image:'images/glace-menthe.jpg' },
+          ]},
+        ]
+      }
+    ],
+    updated: Date.now()
+  };
 
-</div>
+  const tplFood = document.getElementById('food-card-template').content;
+  const tplSection = document.getElementById('section-template').content;
+  const tplTab = document.getElementById('tab-template').content;
 
-<h2>
+  function createFood(data = {}) {
+    const el = tplFood.cloneNode(true).querySelector('.food-card');
+    const img = el.querySelector('img');
+    const name = el.querySelector('.card-name');
+    const price = el.querySelector('.card-price');
+    const urlInput = el.querySelector('.card-image-url');
+    const fileInput = el.querySelector('.card-image-file');
+    const dataInput = el.querySelector('.card-image-data');
 
-Ajouter un plat
+    name.value = data.name || '';
+    price.value = data.price || '';
+    urlInput.value = data.image || '';
+    if (data.image) img.src = data.image;
+    if (data.data) { img.src = data.data; dataInput.value = data.data; }
+    // file change handler
+    fileInput.addEventListener('change', (ev) => {
+      const f = ev.target.files[0];
+      if (!f) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        img.src = reader.result;
+        dataInput.value = reader.result;
+        urlInput.value = '';
+        showAdminAlert('Photo chargée.');
+      };
+      reader.readAsDataURL(f);
+    });
+    // url input blur handler set image
+    urlInput.addEventListener('change', ()=> {
+      if (urlInput.value.trim()) {
+        img.src = urlInput.value.trim();
+        dataInput.value = '';
+      }
+    });
+    // choose photo button trigger
+    el.querySelector('.choose-photo-btn').addEventListener('click', ()=> fileInput.click());
+    return el;
+  }
 
-</h2>
+  function createSection(data={}) {
+    const sec = tplSection.cloneNode(true).querySelector('.menu-section');
+    if (data.title) sec.querySelector('h2').textContent = data.title;
+    const cards = sec.querySelector('.cards');
+    (data.items || []).forEach(it => {
+      const card = createFood(it);
+      cards.insertBefore(card, cards.querySelector('.add-card'));
+    });
+    return sec;
+  }
 
-<p>
+  function createTabElement(tabData) {
+    const li = tplTab.cloneNode(true).querySelector('.tab-item');
+    const btn = li.querySelector('.tab-btn');
+    const titleEl = li.querySelector('.tab-title');
+    const id = tabData.id || uid('cat');
+    btn.dataset.target = id;
+    titleEl.textContent = tabData.title || 'Nouvel onglet';
+    return { li, id };
+  }
 
-Créer un nouveau plat pour votre restaurant.
+  function serializeMenu() {
+    const out = { tabs: [], updated: Date.now() };
+    tabsList.querySelectorAll('.tab-item').forEach(tabEl => {
+      const title = tabEl.querySelector('.tab-title')?.textContent?.trim() || '';
+      const target = tabEl.querySelector('.tab-btn')?.dataset.target;
+      const cat = document.getElementById(target);
+      const sections = [];
+      if (cat) {
+        cat.querySelectorAll('.menu-section').forEach(sec => {
+          const sTitle = sec.querySelector('h2')?.textContent?.trim() || '';
+          const items = [];
+          sec.querySelectorAll('.food-card').forEach(card => {
+            const name = card.querySelector('.card-name')?.value || '';
+            const price = card.querySelector('.card-price')?.value || '';
+            const imgEl = card.querySelector('img');
+            const dataInput = card.querySelector('.card-image-data')?.value || '';
+            const imgSrc = dataInput || (imgEl ? imgEl.src : '');
+            items.push({ name, price, image: imgSrc });
+          });
+          sections.push({ title: sTitle, items });
+        });
+      }
+      out.tabs.push({ title, id: target, sections });
+    });
+    return out;
+  }
 
-</p>
+  function renderMenu(data) {
+    // clear
+    tabsList.innerHTML = '';
+    // remove existing categories from menuContent (except templates area)
+    Array.from(menuContent.querySelectorAll('.menu-category')).forEach(el => el.remove());
+    data.tabs.forEach((t, idx) => {
+      const { li, id } = createTabElement(t);
+      li.querySelector('.tab-btn').dataset.target = id;
+      tabsList.appendChild(li);
 
-</a>
+      const cat = document.createElement('section');
+      cat.className = 'menu-category' + (idx === 0 ? ' active' : '');
+      cat.id = id;
+      (t.sections || []).forEach(secData => {
+        const sec = createSection(secData);
+        cat.appendChild(sec);
+      });
+      // ensure add-section button
+      const addSection = document.createElement('button');
+      addSection.className = 'add-section-btn';
+      addSection.textContent = '+ Ajouter une section';
+      cat.appendChild(addSection);
+      menuContent.appendChild(cat);
+    });
+    // if no tabs, create one
+    if (!data.tabs || data.tabs.length === 0) {
+      const newTab = { title: 'Nouvel onglet', id: uid('cat'), sections:[{title:'Nouvelle section', items:[]}] };
+      renderMenu({ tabs:[newTab] });
+    }
+  }
 
-<a href="#" class="menu-card">
+  function loadFromStorage() {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) { renderMenu(initialData); return; }
+    try {
+      const data = JSON.parse(raw);
+      renderMenu(data);
+      showAdminAlert('Menu chargé depuis le stockage.');
+    } catch(e){ console.error(e); renderMenu(initialData); }
+  }
 
-<div class="emoji">
+  // events
+  document.addEventListener('click', (e) => {
+    const addCardBtn = e.target.closest('.add-card');
+    if (addCardBtn) {
+      const cards = addCardBtn.closest('.cards');
+      const newCard = createFood();
+      cards.insertBefore(newCard, cards.querySelector('.add-card'));
+      showAdminAlert('Plat ajouté. Renseignez nom/prix/photo.');
+      return;
+    }
 
-⚙️
+    const deleteCardBtn = e.target.closest('.delete-btn');
+    if (deleteCardBtn) {
+      if (!confirmDelete('Voulez-vous vraiment supprimer ce plat ?')) return;
+      deleteCardBtn.closest('.food-card')?.remove();
+      showAdminAlert('Plat supprimé.');
+      return;
+    }
 
-</div>
+    const addSectionBtn = e.target.closest('.add-section-btn');
+    if (addSectionBtn) {
+      const category = addSectionBtn.closest('.menu-category');
+      const newSec = createSection({ title:'Nouvelle section', items:[] });
+      category.insertBefore(newSec, addSectionBtn);
+      showAdminAlert('Section ajoutée.');
+      return;
+    }
 
-<h2>
+    const deleteSectionBtn = e.target.closest('.delete-section-btn');
+    if (deleteSectionBtn) {
+      if (!confirmDelete('Voulez-vous vraiment supprimer cette section ?')) return;
+      deleteSectionBtn.closest('.menu-section')?.remove();
+      showAdminAlert('Section supprimée.');
+      return;
+    }
 
-Gérer les plats
+    const tabDeleteBtn = e.target.closest('.tab-delete-btn');
+    if (tabDeleteBtn) {
+      if (!confirmDelete('Voulez-vous vraiment supprimer cet onglet ?')) return;
+      const tabItem = tabDeleteBtn.closest('.tab-item');
+      const target = tabItem.querySelector('.tab-btn')?.dataset.target;
+      document.getElementById(target)?.remove();
+      tabItem.remove();
+      const firstTab = tabsList.querySelector('.tab-item');
+      if (firstTab) {
+        firstTab.classList.add('active');
+        const firstTarget = firstTab.querySelector('.tab-btn')?.dataset.target;
+        document.querySelectorAll('.menu-category').forEach(c=>c.classList.remove('active'));
+        document.getElementById(firstTarget)?.classList.add('active');
+      }
+      showAdminAlert('Onglet supprimé.');
+      return;
+    }
 
-</h2>
+    const tabBtn = e.target.closest('.tab-btn');
+    if (tabBtn) {
+      document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));
+      tabBtn.closest('.tab-item').classList.add('active');
+      const target = tabBtn.dataset.target;
+      document.querySelectorAll('.menu-category').forEach(c=>c.classList.remove('active'));
+      document.getElementById(target)?.classList.add('active');
+      tabBtn.scrollIntoView({ inline:'center', behavior:'smooth' });
+      return;
+    }
 
-<p>
+    if (e.target.id === 'add-tab-btn') {
+      const newId = uid('cat');
+      const tabData = { title:'Nouvel onglet', id:newId };
+      const { li, id } = createTabElement(tabData);
+      li.querySelector('.tab-btn').dataset.target = id;
+      tabsList.appendChild(li);
 
-Modifier, masquer ou supprimer les plats.
+      const cat = document.createElement('section');
+      cat.className = 'menu-category';
+      cat.id = id;
+      const sec = createSection({ title:'Nouvelle section', items:[] });
+      cat.appendChild(sec);
+      const addSection = document.createElement('button');
+      addSection.className = 'add-section-btn';
+      addSection.textContent = '+ Ajouter une section';
+      cat.appendChild(addSection);
+      menuContent.appendChild(cat);
 
-</p>
+      document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));
+      li.classList.add('active');
+      document.querySelectorAll('.menu-category').forEach(c=>c.classList.remove('active'));
+      cat.classList.add('active');
+      showAdminAlert('Nouvel onglet ajouté.');
+      return;
+    }
 
-</a>
+    if (e.target.id === 'save-btn') {
+      const data = serializeMenu();
+      try {
+        localStorage.setItem(LS_KEY, JSON.stringify(data));
+        showAdminAlert('Modifications enregistrées.');
+      } catch(err) {
+        console.error(err);
+        showAdminAlert('Erreur lors de l\'enregistrement.');
+      }
+      return;
+    }
 
-</main>
+    if (e.target.id === 'reset-btn') {
+      if (!confirm('Restaurer le menu initial supprimera les modifications enregistrées. Continuer ?')) return;
+      localStorage.removeItem(LS_KEY);
+      renderMenu(initialData);
+      showAdminAlert('Menu restauré à l\'initial.');
+      return;
+    }
+  });
 
+  // image file input handling via delegation for dynamically created nodes
+  document.addEventListener('change', (e) => {
+    const f = e.target;
+    if (f.classList && f.classList.contains('card-image-file')) {
+      const file = f.files[0];
+      if (!file) return;
+      const card = f.closest('.food-card');
+      const img = card.querySelector('img');
+      const dataInput = card.querySelector('.card-image-data');
+      const urlInput = card.querySelector('.card-image-url');
+      const reader = new FileReader();
+      reader.onload = () => {
+        img.src = reader.result;
+        dataInput.value = reader.result;
+        urlInput.value = '';
+        showAdminAlert('Photo sélectionnée.');
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // manual URL change
+  document.addEventListener('input', (e)=> {
+    const t = e.target;
+    if (t.classList && t.classList.contains('card-image-url')) {
+      const card = t.closest('.food-card');
+      const img = card.querySelector('img');
+      const dataInput = card.querySelector('.card-image-data');
+      if (t.value.trim()) {
+        img.src = t.value.trim();
+        dataInput.value = '';
+      }
+    }
+  });
+
+  // edits notification
+  document.addEventListener('focusout', (e) => {
+    const t = e.target;
+    if (t.matches('.tab-title') || t.matches('.section-head h2') || t.matches('.card-name') || t.matches('.card-price') || t.matches('.card-image-url')) {
+      showAdminAlert('Modification locale (pensez à Enregistrer).');
+    }
+  });
+
+  // init
+  loadFromStorage();
+  setTimeout(()=>{
+    const active = tabsList.querySelector('.tab-item.active');
+    if (active) active.scrollIntoView({inline:'center', behavior:'smooth'});
+  }, 200);
+})();
+</script>
 </body>
-
 </html>

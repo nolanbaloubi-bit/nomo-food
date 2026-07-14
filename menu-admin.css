@@ -21,7 +21,13 @@ body{font-family:Arial, sans-serif;background:#f8f8f8;padding:40px 20px;color:#2
 .tab-delete-btn{border:none;background:#ffe8d8;color:#ff7300;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:16px}
 
 .menu-content{max-width:1300px;margin:36px auto 120px;padding:0 20px}
-.menu-category{display:block} /* categories created dynamically */
+.menu-category{
+    display:none;
+}
+
+.menu-category.active{
+    display:block;
+} /* categories created dynamically */
 .menu-section{margin-bottom:20px;background:#fff;border-radius:16px;padding:12px;box-shadow:0 8px 22px rgba(0,0,0,0.04)}
 .section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
 .section-head h2{font-size:18px;color:#222}
