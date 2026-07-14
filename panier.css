@@ -325,17 +325,22 @@ body{
 }
 
 
-#client-number{
+#client-number,
+#table-number{
 
     width:100%;
 
-    padding:15px;
+    padding:16px;
 
-    margin:20px 0;
+    margin:10px 0;
 
-    border-radius:10px;
+    border-radius:12px;
 
     border:1px solid #ddd;
+
+    font-size:15px;
+
+    background:#fafafa;
 
 }
 
@@ -449,5 +454,38 @@ input:active{
     outline:none;
 
     box-shadow:none;
+
+}
+
+.whatsapp-box label{
+
+    display:block;
+
+    text-align:left;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    margin-top:10px;
+
+    color:#444;
+
+}
+
+
+.whatsapp-box small{
+
+    display:block;
+
+    text-align:left;
+
+    font-size:12px;
+
+    color:#777;
+
+    margin-top:-5px;
+
+    margin-bottom:10px;
 
 }

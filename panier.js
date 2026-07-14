@@ -134,16 +134,19 @@ closeModal.addEventListener("click",()=>{
 sendBtn.addEventListener("click",()=>{
 
 
-    const number = document.getElementById("client-number").value;
+  const number = document.getElementById("client-number").value;
+const tableNumber = document.getElementById("table-number").value;
 
 
-    if(number === ""){
 
-        alert("Veuillez entrer votre numéro");
 
-        return;
+if(number === ""){
 
-    }
+    alert("Veuillez entrer votre numéro");
+
+    return;
+
+}
 
 
 
@@ -181,9 +184,19 @@ sendBtn.addEventListener("click",()=>{
 
 
 
+message += 
+"Numéro client : "+
+number+
+"%0A";
+
+
+if(tableNumber !== ""){
+
     message += 
-    "Numéro client : "+
-    number;
+    "Numéro de table : "+
+    tableNumber;
+
+}
 
 
 
